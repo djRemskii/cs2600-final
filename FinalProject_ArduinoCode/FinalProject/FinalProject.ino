@@ -6,6 +6,7 @@
 **********************************************************************/
 #include <WiFi.h>
 #include <ArduinoMqttClient.h>
+#include <string.h>
 
 //FOR RESTART BUTTON
 #define PIN_BUTTON 13
@@ -97,14 +98,17 @@ void loop() {
 
     //record random value from A0, A1 and A2
     int Rvalue = 9;
+    
 
     Serial.print("Sending message to topic: ");
     Serial.println(topic);
-    Serial.println(Rvalue);
+    //Serial.println(Rvalue);
+    Serial.println("reset");
 
     // send message, the Print interface can be used to set the message contents
     mqttClient.beginMessage(topic);
-    mqttClient.print(Rvalue);
+    //mqttClient.print(Rvalue);
+    mqttClient.print("reset");
     mqttClient.endMessage();
 
     Serial.println();
