@@ -9,7 +9,10 @@
 #include <string.h>
 
 //FOR RESTART BUTTON
-#define PIN_BUTTON 34
+#define RESET_BUTTON 23
+
+//FOR SEND BUTTON
+#define SEND_BUTTON 22
 
 //FOR JOYSTICK
 int xyzPins[] = {36, 39, 21};
@@ -25,7 +28,7 @@ MqttClient mqttClient(client);
 
 const char broker[] = "test.mosquitto.org";
 int        port     = 1883;
-const char topic[]  = "real_unique_topic";
+const char topic[]  = "ong_tictactoe";
 
 //set interval for sending messages (milliseconds)
 const long interval = 8000;
@@ -35,8 +38,9 @@ int count = 0;
 //TEST
 
 void setup() {
-  //FOR RESTART BUTTON
-  pinMode(PIN_BUTTON, INPUT);
+  //FOR RESTART/SEND BUTTONS
+  pinMode(RESET_BUTTON, INPUT);
+  pinMode(SEND_BUTTON, INPUT);
   
   //FOR JOYSTICK BUTTON/Z AXIS
   pinMode(xyzPins[0], INPUT);
@@ -96,7 +100,7 @@ void loop() {
 
   int gridNum = 0;
   
-  //TOP GRIDS
+  //GRID SELECTION CODE
   if ((-1 < yVal) && (yVal < 400)){
     if((-1 < xVal) && (xVal < 400)){ //TOP LEFT GRID 1
       gridNum = 1;
@@ -139,28 +143,34 @@ void loop() {
   // avoids being disconnected by the broker
   mqttClient.poll();
 
-  unsigned long currentMillis = millis();
 
-  //if (currentMillis - previousMillis >= interval) {
-  if(digitalRead(PIN_BUTTON) == LOW){
-
-
-    // save the last time a message was sent
-    previousMillis = currentMillis;
-
-    //record random value from A0, A1 and A2
-    int Rvalue = 9;
-    
+  //SEND RESET SIGNAL
+  if(digitalRead(RESET_BUTTON) == LOW){
 
     Serial.print("Sending message to topic: ");
     Serial.println(topic);
-    //Serial.println(Rvalue);
     Serial.println("reset");
 
     // send message, the Print interface can be used to set the message contents
     mqttClient.beginMessage(topic);
-    //mqttClient.print(Rvalue);
     mqttClient.print("reset");
+    mqttClient.endMessage();
+
+    Serial.println();
+
+    delay(1000);
+  }
+
+  //SEND GRIDNUM SIGNAL
+  if(digitalRead(SEND_BUTTON) == LOW){
+
+    Serial.print("Sending message to topic: ");
+    Serial.println(topic);
+    Serial.println(gridNum);
+
+    // send message, the Print interface can be used to set the message contents
+    mqttClient.beginMessage(topic);
+    mqttClient.print(gridNum);
     mqttClient.endMessage();
 
     Serial.println();
