@@ -12,7 +12,7 @@
 #define PIN_BUTTON 34
 
 //FOR JOYSTICK
-int xyzPins[] = {23, 22, 21};
+int xyzPins[] = {36, 39, 21};
 
 const char *ssid_Router     =  "The Ong Orb"; //Enter the router name
 const char *password_Router =  "darfdar080870"; //Enter the router password
