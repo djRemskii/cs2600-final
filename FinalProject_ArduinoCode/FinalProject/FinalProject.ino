@@ -9,7 +9,7 @@
 #include <string.h>
 
 //FOR RESTART BUTTON
-#define PIN_BUTTON 13
+#define PIN_BUTTON 34
 
 const char *ssid_Router     =  "The Ong Orb"; //Enter the router name
 const char *password_Router =  "darfdar080870"; //Enter the router password
