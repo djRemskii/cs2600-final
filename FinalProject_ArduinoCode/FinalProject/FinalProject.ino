@@ -28,7 +28,8 @@ MqttClient mqttClient(client);
 
 const char broker[] = "test.mosquitto.org";
 int        port     = 1883;
-const char topic[]  = "ong_tictactoe";
+const char outtopic[]  = "ong_arduino";
+const char intopic[] = "ong_tictactoe";
 
 //set interval for sending messages (milliseconds)
 const long interval = 8000;
@@ -81,13 +82,13 @@ void setup() {
   mqttClient.onMessage(onMqttMessage);
 
   Serial.print("Subscribing to topic: ");
-  Serial.println(topic);
+  Serial.println(intopic);
   Serial.println();
 
-  mqttClient.subscribe(topic);
+  mqttClient.subscribe(intopic);
 
   Serial.print("Topic: ");
-  Serial.println(topic);
+  Serial.println(outtopic);
 
   Serial.println();
 }
@@ -148,11 +149,11 @@ void loop() {
   if(digitalRead(RESET_BUTTON) == LOW){
 
     Serial.print("Sending message to topic: ");
-    Serial.println(topic);
+    Serial.println(outtopic);
     Serial.println("reset");
 
     // send message, the Print interface can be used to set the message contents
-    mqttClient.beginMessage(topic);
+    mqttClient.beginMessage(outtopic);
     mqttClient.print("reset");
     mqttClient.endMessage();
 
@@ -165,11 +166,11 @@ void loop() {
   if(digitalRead(SEND_BUTTON) == LOW){
 
     Serial.print("Sending message to topic: ");
-    Serial.println(topic);
+    Serial.println(outtopic);
     Serial.println(gridNum);
 
     // send message, the Print interface can be used to set the message contents
-    mqttClient.beginMessage(topic);
+    mqttClient.beginMessage(outtopic);
     mqttClient.print(gridNum);
     mqttClient.endMessage();
 
