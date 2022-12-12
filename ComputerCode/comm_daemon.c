@@ -33,8 +33,13 @@ int main(){
         return -1;
     }
 
+
     mosquitto_loop_start(mosq);
     
+    printf("Press Enter to send message...\n");
+    getchar();
+    mosquitto_publish(mosq, NULL, "real_unique_topic", 6, "Hello!", 0, false);
+
     printf("Press Enter to quit...\n");
     getchar();
     mosquitto_loop_stop(mosq, true);
