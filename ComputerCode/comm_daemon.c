@@ -24,7 +24,7 @@ void on_message(struct mosquitto *mosq, void *obj, const struct mosquitto_messag
         printme();
     }
 
-    if(strcmp(numIn, "restart") == 0){
+    if(strcmp(numIn, "reset") == 0){
         printme();
     }
 }
