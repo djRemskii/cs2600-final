@@ -33,9 +33,17 @@ int main(){
         return -1;
     }
 
+    char message[12] = "Hello World";
+    char *messagePointer = message;
+    int messageSize = sizeof(message);
+    int mid = 11;
+    int *midp = &mid;
+
     mosquitto_loop_start(mosq);
+    
     printf("Press Enter to quit...\n");
     getchar();
+    mosquitto_publish (mosq, midp, "real_unique_topic", messageSize, messagePointer, 2, true);
     mosquitto_loop_stop(mosq, true);
 
     mosquitto_disconnect(mosq);
