@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+#include "finalLib.h"
 
 #include <mosquitto.h>
 
@@ -14,6 +17,16 @@ void on_connect(struct mosquitto *mosq, void *obj, int rc){
 
 void on_message(struct mosquitto *mosq, void *obj, const struct mosquitto_message *msg){
     printf("New message with topic %s: %s\n", msg->topic, (char *) msg->payload);
+
+    char *numIn = (char *)msg->payload;
+
+    if(*numIn == '9'){
+        printme();
+    }
+
+    if(strcmp(numIn, "restart") == 0){
+        printme();
+    }
 }
 
 int main(){
