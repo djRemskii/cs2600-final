@@ -94,7 +94,45 @@ void loop() {
   int yVal = analogRead(xyzPins[1]);
   int zVal = digitalRead(xyzPins[2]);
 
+  int gridNum = 0;
+  
+  //TOP GRIDS
+  if ((-1 < yVal) && (yVal < 400)){
+    if((-1 < xVal) && (xVal < 400)){ //TOP LEFT GRID 1
+      gridNum = 1;
+    } else
+    if((1400 < xVal) && (xVal < 2400)){ //TOP MID GRID 2
+      gridNum = 2;
+    } else
+    if(xVal > 3000){  //TOP RIGHT GRID 3
+      gridNum = 3;
+    }
+  } else 
+  if ((1400 < yVal) && (yVal < 2400)){
+    if((-1 < xVal) && (xVal < 400)){ //MID LEFT GRID 4
+      gridNum = 4;
+    } else
+    if((1400 < xVal) && (xVal < 2400)){ //MID MID GRID 5
+      gridNum = 5;
+    } else
+    if(xVal > 3000){  //MID RIGHT GRID 6
+      gridNum = 6;
+    }
+  } else 
+  if (3000 < yVal){
+    if((-1 < xVal) && (xVal < 400)){ //BOTTOM LEFT GRID 7
+      gridNum = 7;
+    } else
+    if((1400 < xVal) && (xVal < 2400)){ //BOTTOM MID GRID 8
+      gridNum = 8;
+    } else
+    if(xVal > 3000){  //BOTTOM RIGHT GRID 9
+      gridNum = 9;
+    }
+  } 
+
   Serial.printf("X,Y,Z: %d,\t%d,\t%d\n", xVal, yVal, zVal);
+  Serial.printf("gridNum: %d\n", gridNum);
   delay(500);
 
   // call poll() regularly to allow the library to send MQTT keep alive which
