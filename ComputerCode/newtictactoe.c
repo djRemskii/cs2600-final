@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-int grid[3][3]; 
+int grid[9]; 
 bool gameOver = false;
 bool vsComputer = false;
 
@@ -19,7 +19,7 @@ void askRestart();
 bool playerTurn();
 void computerTurn();
 
-int game(int gameTypeIn){
+int game(){
 
     srand(time(0));
 
@@ -29,39 +29,9 @@ int game(int gameTypeIn){
     //prompt user for game they wish to play (vs human or vs computer)
     //printf("Please choose the type of game (input number):\n\t1 - human vs human\n\t2 - human vs computer\n\t3 - computer vs computer\n");
 
-    int gameType = gameTypeIn;
-    //scanf("%d", &gameType);
-    if (gameType == 2){
-        vsComputer = true;
-    } else if (gameType == 3){
-        while (!gameOver){
-            computerTurn(1);
-            checkWin(1);
-            checkTie();
-            if (!gameOver){
-                computerTurn(2);
-                checkWin(2);
-                checkTie();
-            }
-        }
-    }
-    
-    //need while loop for game working
-    while (!gameOver){
-        playerTurn(1);
-        checkWin(1);
-        checkTie();
-        if (vsComputer && !gameOver){
-            computerTurn(2);
-            checkWin(2);
-            checkTie();
-        } else if (!gameOver){
-            playerTurn(2);
-            checkWin(2);
-            checkTie();
-        }
-
-    }
+    int gameType;
+    scanf("%d", &gameType);
+    printf("input recieved");
     
 
     //askRestart();
@@ -84,19 +54,17 @@ void askRestart(){
 }
 
 void reset (){
-    for (int i=0; i<3; i++){
-        for (int j=0; j<3; j++){
-            grid[i][j] = 0;
-        }
+    for (int i=0; i<9; i++){
+        grid[i]=0;
     }
     gameOver = false;
     vsComputer = false;
 }
 
-bool spotSelect(int row, int column, int player){
-    if (0 <= row && row < 3 && 0 <= column && column < 3){
-        if (grid[row][column] == 0){
-            grid[row][column] = player;
+bool spotSelect(int spot, int player){
+    if (0 <= spot < 9){
+        if (grid[spot] == 0){
+            grid[spot] = player;
             return true;
         } else {
             printf("Place already taken. Please choose another place.\n");
@@ -109,12 +77,14 @@ bool spotSelect(int row, int column, int player){
 }
 
 void displayBoard(){
+    int k=0;
     for (int i=0; i<3; i++){
         printf("+-----+\n");
         printf("|");
         for (int j=0; j<3; j++){
-            printf("%c", getSymbol(grid[i][j]));
+            printf("%c", getSymbol(grid[k]));
             printf("|");
+            k++;
         }
         printf("\n");
     }
@@ -134,22 +104,17 @@ char getSymbol(int player){
 bool playerTurn(int player){
     displayBoard();
     printf("Player %d", player);
-    printf(", please choose where to place your piece. (row 1-3, column 1-3)\n");
-        int row;
-        int column;
-        scanf("%d", &row);
-        scanf("%d", &column);
-        return spotSelect(row-1, column-1, player);
+    printf(", please choose where to place your piece. (spot 1-9)\n");
+    return true;
 }
 
 void computerTurn(int player){
     displayBoard();
     bool validMove = false;
     while (!validMove){
-        int row = (rand() %(3));
-        int column = (rand() %(3));
-        if (grid[row][column] == 0){
-            grid[row][column] = player;
+        int spot = (rand() %(9));
+        if (grid[spot] == 0){
+            grid[spot] = player;
             printf("Computer has placed a piece.\n");
             validMove = true;
         }
@@ -159,26 +124,26 @@ void computerTurn(int player){
 bool checkWin(int player){
 
     //check horizontal win (row)
-    for (int i=0; i<3; i++){
-        if (grid[i][0] == player && grid[i][1] == player && grid[i][2] == player){
+    for (int i=0; i<7; i+=3){
+        if (grid[i] == player && grid[i+1] == player && grid[i+2] == player){
             gameOver = true;
         }
     }
 
     //check vertical win (column)
     for (int i=0; i<3; i++){
-        if (grid[0][i] == player && grid[1][i] == player && grid[2][i] == player){
+        if (grid[i] == player && grid[i+3] == player && grid[i+6] == player){
             gameOver = true;
         }
     }
 
     //check diagonal win (top left to bottom right)
-    if (grid[0][0] == player && grid[1][1] == player && grid[2][2] == player){
+    if (grid[0] == player && grid[4] == player && grid[8] == player){
         gameOver = true;
     }
 
     //check diagonal win (bottom left to top right)
-    if (grid[2][0] == player && grid[1][1] == player && grid[0][2] == player){
+    if (grid[6] == player && grid[4] == player && grid[2] == player){
         gameOver = true;
     }
 
@@ -198,11 +163,9 @@ bool checkTie(){
     bool allFull = false;
     if (!gameOver){
         allFull = true;
-        for (int i=0; i<3; i++){
-            for (int j=0; j<3; j++){
-                if (grid[i][j] == 0){
-                    allFull = false;
-                }
+        for (int i=0; i<9; i++){
+            if (grid[i] == 0){
+                allFull = false;
             }
         }
     }
