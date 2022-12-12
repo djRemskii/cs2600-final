@@ -11,6 +11,9 @@
 //FOR RESTART BUTTON
 #define PIN_BUTTON 34
 
+//FOR JOYSTICK
+int xyzPins[] = {23, 22, 21};
+
 const char *ssid_Router     =  "The Ong Orb"; //Enter the router name
 const char *password_Router =  "darfdar080870"; //Enter the router password
 //#define     REMOTE_IP          "192.168.1.14"  //input the remote server which is you want to connect
@@ -34,7 +37,11 @@ int count = 0;
 void setup() {
   //FOR RESTART BUTTON
   pinMode(PIN_BUTTON, INPUT);
-  //END
+  
+  //FOR JOYSTICK BUTTON/Z AXIS
+  pinMode(xyzPins[0], INPUT);
+  pinMode(xyzPins[1], INPUT);
+  pinMode(xyzPins[2], INPUT_PULLUP);
 
   Serial.begin(115200);
   delay(10);
@@ -82,7 +89,14 @@ void setup() {
 }
 
 void loop() {
-  //TEST
+  //FOR JOYSTICK INPUTS
+  int xVal = analogRead(xyzPins[0]);
+  int yVal = analogRead(xyzPins[1]);
+  int zVal = digitalRead(xyzPins[2]);
+
+  Serial.printf("X,Y,Z: %d,\t%d,\t%d\n", xVal, yVal, zVal);
+  delay(500);
+
   // call poll() regularly to allow the library to send MQTT keep alive which
   // avoids being disconnected by the broker
   mqttClient.poll();
