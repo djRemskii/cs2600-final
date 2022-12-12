@@ -19,7 +19,7 @@ void askRestart();
 bool playerTurn();
 void computerTurn();
 
-int main(){
+int game(int gameTypeIn){
 
     srand(time(0));
 
@@ -27,10 +27,10 @@ int main(){
 
 
     //prompt user for game they wish to play (vs human or vs computer)
-    printf("Please choose the type of game (input number):\n\t1 - human vs human\n\t2 - human vs computer\n\t3 - computer vs computer\n");
+    //printf("Please choose the type of game (input number):\n\t1 - human vs human\n\t2 - human vs computer\n\t3 - computer vs computer\n");
 
-    int gameType;
-    scanf("%d", &gameType);
+    int gameType = gameTypeIn;
+    //scanf("%d", &gameType);
     if (gameType == 2){
         vsComputer = true;
     } else if (gameType == 3){
