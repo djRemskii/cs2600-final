@@ -6,13 +6,16 @@
 
 #include <mosquitto.h>
 
+const char outtopic[] = "ong_tictactoe";
+const char intopic[] = "ong_arduino";
+
 void on_connect(struct mosquitto *mosq, void *obj, int rc){
     printf("ID: %d\n", * (int *) obj);
     if(rc) {
         printf("Error with result code: %d\n", rc);
         exit (-1);
     }
-    mosquitto_subscribe(mosq, NULL, "real_unique_topic", 0);
+    mosquitto_subscribe(mosq, NULL, intopic, 0);
 }
 
 void on_message(struct mosquitto *mosq, void *obj, const struct mosquitto_message *msg){
@@ -51,7 +54,7 @@ int main(){
     
     printf("Press Enter to send message...\n");
     getchar();
-    mosquitto_publish(mosq, NULL, "real_unique_topic", 6, "Hello!", 0, false);
+    mosquitto_publish(mosq, NULL, outtopic, 6, "Hello!", 0, false);
 
     printf("Press Enter to quit...\n");
     getchar();
