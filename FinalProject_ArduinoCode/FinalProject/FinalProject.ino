@@ -7,6 +7,9 @@
 #include <WiFi.h>
 #include <ArduinoMqttClient.h>
 
+//FOR RESTART BUTTON
+#define PIN_BUTTON 13
+
 const char *ssid_Router     =  "The Ong Orb"; //Enter the router name
 const char *password_Router =  "darfdar080870"; //Enter the router password
 //#define     REMOTE_IP          "192.168.1.14"  //input the remote server which is you want to connect
@@ -28,6 +31,10 @@ int count = 0;
 //TEST
 
 void setup() {
+  //FOR RESTART BUTTON
+  pinMode(PIN_BUTTON, INPUT);
+  //END
+
   Serial.begin(115200);
   delay(10);
 
@@ -81,12 +88,15 @@ void loop() {
 
   unsigned long currentMillis = millis();
 
-  if (currentMillis - previousMillis >= interval) {
+  //if (currentMillis - previousMillis >= interval) {
+  if(digitalRead(PIN_BUTTON) == LOW){
+
+
     // save the last time a message was sent
     previousMillis = currentMillis;
 
     //record random value from A0, A1 and A2
-    int Rvalue = analogRead(T0);
+    int Rvalue = 9;
 
     Serial.print("Sending message to topic: ");
     Serial.println(topic);
@@ -98,6 +108,8 @@ void loop() {
     mqttClient.endMessage();
 
     Serial.println();
+
+    delay(1000);
   }
 }
 
