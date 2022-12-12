@@ -14,6 +14,7 @@ const char intopic[] = "ong_arduino";
 //FOR TICTACTOE
 
 int grid[9]; 
+bool gameStart = false;
 bool gameOver = false;
 bool vsComputer = false;
 
@@ -46,18 +47,18 @@ void on_connect(struct mosquitto *mosq, void *obj, int rc){
 void on_message(struct mosquitto *mosq, void *obj, const struct mosquitto_message *msg){
     printf("New message with topic %s: %s\n", msg->topic, (char *) msg->payload);
 
+    if(strcmp(inputMSG, "reset") == 0){
+        reset();
+        printme();
+        gameStart = true;
+        //msgProcessed = true;
+        //game(3);
+    }
+
     inputMSG = (char *)msg->payload;
     msgProcessed = false;
 
-    if(*inputMSG == '9'){
-        printme();
-    }
-
-    if(strcmp(inputMSG, "reset") == 0){
-        printme();
-        msgProcessed = true;
-        game(3);
-    }
+    
 }
 
 int main(){
@@ -79,16 +80,28 @@ int main(){
         return -1;
     }
 
+    while(true){
+        mosquitto_loop_start(mosq);
+        while(!gameStart){
+        
+        }
+        mosquitto_loop_stop(mosq, true);
+        printf("hello");
+        gameStart = false;
+        
 
-    mosquitto_loop_start(mosq);
+        /*
+        printf("Press Enter to send message...\n");
+        getchar();
+        mosquitto_publish(mosq, NULL, outtopic, 6, "Hello!", 0, false);
+
+        printf("Press Enter to quit...\n");
+        getchar();
+        */
+    }
     
-    printf("Press Enter to send message...\n");
-    getchar();
-    mosquitto_publish(mosq, NULL, outtopic, 6, "Hello!", 0, false);
 
-    printf("Press Enter to quit...\n");
-    getchar();
-    mosquitto_loop_stop(mosq, true);
+    
 
     mosquitto_disconnect(mosq);
     mosquitto_destroy(mosq);
