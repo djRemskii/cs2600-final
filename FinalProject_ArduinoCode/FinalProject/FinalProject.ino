@@ -276,7 +276,7 @@ void loop() {
   }
 
   //SEND GRIDNUM SIGNAL
-  if(digitalRead(SEND_BUTTON) == LOW){
+  if((digitalRead(SEND_BUTTON) == LOW) || (zVal == 0)){
 
     Serial.print("Sending message to topic: ");
     Serial.println(outtopic);
