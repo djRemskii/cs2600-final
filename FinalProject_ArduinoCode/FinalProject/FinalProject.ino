@@ -14,6 +14,17 @@
 //FOR SEND BUTTON
 #define SEND_BUTTON 22
 
+//FOR LED DEFINITIONS
+#define PIN_LED_1 19
+#define PIN_LED_2 18
+#define PIN_LED_3 5
+#define PIN_LED_4 0
+#define PIN_LED_5 2
+#define PIN_LED_6 15
+#define PIN_LED_7 32
+#define PIN_LED_8 33
+#define PIN_LED_9 25
+
 //FOR JOYSTICK
 int xyzPins[] = {36, 39, 21};
 
@@ -47,6 +58,17 @@ void setup() {
   pinMode(xyzPins[0], INPUT);
   pinMode(xyzPins[1], INPUT);
   pinMode(xyzPins[2], INPUT_PULLUP);
+
+  //FOR LED GRID
+  pinMode(PIN_LED_1, OUTPUT);
+  pinMode(PIN_LED_2, OUTPUT);
+  pinMode(PIN_LED_3, OUTPUT);
+  pinMode(PIN_LED_4, OUTPUT);
+  pinMode(PIN_LED_5, OUTPUT);
+  pinMode(PIN_LED_6, OUTPUT);
+  pinMode(PIN_LED_7, OUTPUT);
+  pinMode(PIN_LED_8, OUTPUT);
+  pinMode(PIN_LED_9, OUTPUT);
 
   Serial.begin(115200);
   delay(10);
@@ -105,34 +127,125 @@ void loop() {
   if ((-1 < yVal) && (yVal < 400)){
     if((-1 < xVal) && (xVal < 400)){ //TOP LEFT GRID 1
       gridNum = 1;
+      digitalWrite(PIN_LED_1,HIGH);
+
+      digitalWrite(PIN_LED_2,LOW);
+      digitalWrite(PIN_LED_3,LOW);
+      digitalWrite(PIN_LED_4,LOW);
+      digitalWrite(PIN_LED_5,LOW);
+      digitalWrite(PIN_LED_6,LOW);
+      digitalWrite(PIN_LED_7,LOW);
+      digitalWrite(PIN_LED_8,LOW);
+      digitalWrite(PIN_LED_9,LOW);
+
     } else
     if((1400 < xVal) && (xVal < 2400)){ //TOP MID GRID 2
       gridNum = 2;
+      digitalWrite(PIN_LED_2,HIGH);
+
+      digitalWrite(PIN_LED_1,LOW);
+      digitalWrite(PIN_LED_3,LOW);
+      digitalWrite(PIN_LED_4,LOW);
+      digitalWrite(PIN_LED_5,LOW);
+      digitalWrite(PIN_LED_6,LOW);
+      digitalWrite(PIN_LED_7,LOW);
+      digitalWrite(PIN_LED_8,LOW);
+      digitalWrite(PIN_LED_9,LOW);
     } else
     if(xVal > 3000){  //TOP RIGHT GRID 3
       gridNum = 3;
+      digitalWrite(PIN_LED_3,HIGH);
+
+      digitalWrite(PIN_LED_2,LOW);
+      digitalWrite(PIN_LED_1,LOW);
+      digitalWrite(PIN_LED_4,LOW);
+      digitalWrite(PIN_LED_5,LOW);
+      digitalWrite(PIN_LED_6,LOW);
+      digitalWrite(PIN_LED_7,LOW);
+      digitalWrite(PIN_LED_8,LOW);
+      digitalWrite(PIN_LED_9,LOW);
     }
   } else 
   if ((1400 < yVal) && (yVal < 2400)){
     if((-1 < xVal) && (xVal < 400)){ //MID LEFT GRID 4
       gridNum = 4;
+      digitalWrite(PIN_LED_4,HIGH);
+
+      digitalWrite(PIN_LED_2,LOW);
+      digitalWrite(PIN_LED_3,LOW);
+      digitalWrite(PIN_LED_1,LOW);
+      digitalWrite(PIN_LED_5,LOW);
+      digitalWrite(PIN_LED_6,LOW);
+      digitalWrite(PIN_LED_7,LOW);
+      digitalWrite(PIN_LED_8,LOW);
+      digitalWrite(PIN_LED_9,LOW);
     } else
     if((1400 < xVal) && (xVal < 2400)){ //MID MID GRID 5
       gridNum = 5;
+      digitalWrite(PIN_LED_5,HIGH);
+
+      digitalWrite(PIN_LED_2,LOW);
+      digitalWrite(PIN_LED_3,LOW);
+      digitalWrite(PIN_LED_4,LOW);
+      digitalWrite(PIN_LED_1,LOW);
+      digitalWrite(PIN_LED_6,LOW);
+      digitalWrite(PIN_LED_7,LOW);
+      digitalWrite(PIN_LED_8,LOW);
+      digitalWrite(PIN_LED_9,LOW);
     } else
     if(xVal > 3000){  //MID RIGHT GRID 6
       gridNum = 6;
+      digitalWrite(PIN_LED_6,HIGH);
+
+      digitalWrite(PIN_LED_2,LOW);
+      digitalWrite(PIN_LED_3,LOW);
+      digitalWrite(PIN_LED_4,LOW);
+      digitalWrite(PIN_LED_5,LOW);
+      digitalWrite(PIN_LED_1,LOW);
+      digitalWrite(PIN_LED_7,LOW);
+      digitalWrite(PIN_LED_8,LOW);
+      digitalWrite(PIN_LED_9,LOW);
     }
   } else 
   if (3000 < yVal){
     if((-1 < xVal) && (xVal < 400)){ //BOTTOM LEFT GRID 7
       gridNum = 7;
+      digitalWrite(PIN_LED_7,HIGH);
+
+      digitalWrite(PIN_LED_2,LOW);
+      digitalWrite(PIN_LED_3,LOW);
+      digitalWrite(PIN_LED_4,LOW);
+      digitalWrite(PIN_LED_5,LOW);
+      digitalWrite(PIN_LED_6,LOW);
+      digitalWrite(PIN_LED_1,LOW);
+      digitalWrite(PIN_LED_8,LOW);
+      digitalWrite(PIN_LED_9,LOW);
     } else
     if((1400 < xVal) && (xVal < 2400)){ //BOTTOM MID GRID 8
       gridNum = 8;
+      digitalWrite(PIN_LED_8,HIGH);
+
+      digitalWrite(PIN_LED_2,LOW);
+      digitalWrite(PIN_LED_3,LOW);
+      digitalWrite(PIN_LED_4,LOW);
+      digitalWrite(PIN_LED_5,LOW);
+      digitalWrite(PIN_LED_6,LOW);
+      digitalWrite(PIN_LED_7,LOW);
+      digitalWrite(PIN_LED_1,LOW);
+      digitalWrite(PIN_LED_9,LOW);
     } else
     if(xVal > 3000){  //BOTTOM RIGHT GRID 9
       gridNum = 9;
+      digitalWrite(PIN_LED_9,HIGH);
+
+      digitalWrite(PIN_LED_2,LOW);
+      digitalWrite(PIN_LED_3,LOW);
+      digitalWrite(PIN_LED_4,LOW);
+      digitalWrite(PIN_LED_5,LOW);
+      digitalWrite(PIN_LED_6,LOW);
+      digitalWrite(PIN_LED_7,LOW);
+      digitalWrite(PIN_LED_8,LOW);
+      digitalWrite(PIN_LED_1,LOW);
     }
   } 
 
