@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "../include/finalLib.h"
+
 int grid[9]; 
 bool gameOver = false;
 bool vsComputer = false;
