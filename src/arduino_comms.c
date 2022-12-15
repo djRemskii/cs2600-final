@@ -64,6 +64,7 @@ int main(){
 
 
         mosquitto_loop_start(mosq);
+        /*
         int i=0;
         while(i < 3){
             if(newMessage){
@@ -72,7 +73,7 @@ int main(){
                 i++;
             }
         }
-        
+        */
 
         
         printf("Press Enter to send message...\n");
