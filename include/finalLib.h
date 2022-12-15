@@ -16,4 +16,4 @@ void askRestart();
 bool playerTurn();
 void computerTurn();
 
-int game(int gameTypeIn);
+int game();

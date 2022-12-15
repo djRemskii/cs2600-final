@@ -28,7 +28,7 @@ all: program
 
 program:
 
-	$(CC) -o bin/program$(EXT) $(MAIN) $(INPUT) $(NEWTTT) -lmosquitto
+	$(CC) -o bin/program$(EXT) $(MAIN) $(INPUT) -lmosquitto
 
 objects: arduino_comms.o inputPrinter.o newtictactoe.o
 
