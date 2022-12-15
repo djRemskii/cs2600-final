@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "finalLib.h"
+#include "../include/finalLib.h"
 
 #include <mosquitto.h>
 

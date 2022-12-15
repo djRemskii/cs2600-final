@@ -1,7 +1,7 @@
 CC = gcc
 MAIN = src/arduino_comms.c
 INPUT = src/inputPrinter.c
-TTT = src/tictactoe.c
+NEWTTT = src/newtictactoe.c
 
 # WINDOWS: use ~ mingw32-make [ command ]
 # MAC/LINUS: use ~ make [command]
@@ -28,7 +28,7 @@ all: program
 
 program:
 
-	$(CC) -o bin/program$(EXT) $(MAIN) $(INPUT) $(NEWTTT)
+	$(CC) -o bin/program$(EXT) $(MAIN) $(INPUT) $(NEWTTT) -lmosquitto
 
 objects: arduino_comms.o inputPrinter.o newtictactoe.o
 
