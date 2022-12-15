@@ -1,0 +1,16 @@
+[Unit]
+Description=starts the tictactoe code
+After=network.target
+
+
+[Service]
+ExecStart=/home/djremskii/GIT/cs2600-final/bin/tictactoe
+Restart=always
+WorkingDirectory=/home/djremskii
+User=djremskii
+Group=djremskii
+Environment=GOPATH=/home/djremskii/go
+
+
+[Install]
+WantedBy=multi-user.target
